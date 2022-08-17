@@ -2,7 +2,7 @@ export interface Asset {
   id: string;
   description: string;
   logoUrl: string;
-  example: object;
-  monetized: false;
-  keywords: Array<string>;
+  responseExample: object;
+  monetized: boolean;
+  keywords: Array<String>;
 }

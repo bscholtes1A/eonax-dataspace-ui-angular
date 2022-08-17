@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Offer } from 'src/app/models/offer';
 import { HttpService } from 'src/app/services/http.service';
 import { SessionManagerService } from 'src/app/services/session-manager.service';
+import { UtilsService } from 'src/app/services/utils.service';
 import { AbstractAuthenticatedComponent } from '../abstracts/abstract-authenticated.component';
 
 const POPULARITY = 80;
@@ -18,7 +19,6 @@ export class OfferViewComponent
   implements OnDestroy
 {
   popularity = 0;
-  offerId?: string;
   offer: Offer | undefined;
   routeSub?: Subscription;
   offerSub?: Subscription;
@@ -26,7 +26,8 @@ export class OfferViewComponent
   constructor(
     private activatedRoute: ActivatedRoute,
     private httpService: HttpService,
-    router: Router,
+    private router: Router,
+    private utils: UtilsService,
     sessionManager: SessionManagerService
   ) {
     super(router, sessionManager);
@@ -34,8 +35,11 @@ export class OfferViewComponent
 
   init(): void {
     this.routeSub = this.activatedRoute.params.subscribe((params: Params) => {
-      this.offerId = params['id'];
-      this.getOfferDetails(this.offerId!);
+      if (params['id']) {
+        this.getOfferDetails(params['id']);
+      } else {
+        this.router.navigate(['home']);
+      }
     });
   }
 
@@ -50,30 +54,17 @@ export class OfferViewComponent
 
   getOfferDetails(id: string): void {
     this.offerSub = this.httpService
-      .getAllOffers(this.participant!.url)
-      .subscribe((offersList: Array<Offer>) => {
-        const offer = offersList.find((o) => this.compareOffersById(o.id, id));
-        if (offer === undefined) {
-          throw 'Cannot find Offer with id: ' + id;
-        }
-        this.offer = offer;
+      .getOfferByAssetId(
+        this.participant!.url,
+        this.utils.extractAssetIdFromOfferId(id)
+      )
+      .subscribe((offerResponse: Offer) => {
+        this.offer = offerResponse;
 
         setTimeout(() => {
           this.popularity = POPULARITY;
         }, 1000);
       });
-  }
-
-  compareOffersById(offerId1: string, offerId2: string) {
-    return this.extractAssetId(offerId1) === this.extractAssetId(offerId2);
-  }
-
-  extractAssetId(offerId: string): string {
-    const elements = offerId.split(':');
-    if (elements.length != 2) {
-      throw 'Invalid offer id: ' + offerId;
-    }
-    return elements[0];
   }
 
   getColor(value: number): string {

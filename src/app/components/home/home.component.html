@@ -1,9 +1,9 @@
 <div class="offers">
   <ng-container *ngFor="let offer of offers">
-    <div class="offer" (click)="openOfferDetails(offer.id)">
+    <div class="offer" (click)="openOfferDetails(offer.getId())">
       <div class="offer-logo-container">
         <img
-          src="{{ offer.asset.logoUrl }}"
+          src="{{ offer.getAsset().logoUrl }}"
           alt="offer-logo"
           class="offer-logo"
         />
@@ -11,24 +11,24 @@
 
       <!-- <p *ngIf="!offer.asset.properties.has('logoUrl')">No image</p> -->
       <div class="offer-description">
-        <p class="offer-name">{{ offer.asset.id }}</p>
+        <p class="offer-name">{{ offer.getAsset().id }}</p>
         <!-- <button class="offer-button">View more</button> -->
         <div class="offer-tags">
           <img
             class="offer-tag"
-            *ngIf="offer.asset.keywords.includes('events')"
+            *ngIf="offer.getAsset().keywords.includes('events')"
             src="/assets/kafka.png"
             alt="slug"
           />
           <img
             class="offer-tag"
-            *ngIf="offer.asset.keywords.includes('get')"
+            *ngIf="offer.getAsset().keywords.includes('get')"
             src="/assets/rest2.png"
             alt="slug"
           />
           <img
             class="offer-tag"
-            *ngIf="offer.asset.monetized"
+            *ngIf="offer.getAsset().monetized"
             src="/assets/cash.jpg"
             alt="slug"
           />

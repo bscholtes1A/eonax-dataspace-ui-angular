@@ -1,11 +1,5 @@
 export class Result<T> {
-  private error?: string;
-  private entity?: T;
-
-  private constructor(error?: string, entity?: T) {
-    this.error = error;
-    this.entity = entity;
-  }
+  private constructor(private error?: string, private entity?: T) {}
 
   static success<T>(entity: T): Result<T> {
     return new Result<T>(undefined, entity);

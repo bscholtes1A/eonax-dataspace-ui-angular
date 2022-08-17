@@ -2,16 +2,16 @@
   <div class="offer-banner">
     <img
       class="offer-banner-img"
-      src="{{ offer!.asset.logoUrl }}"
+      src="{{ offer!.getAsset().logoUrl }}"
       alt="background image"
     />
   </div>
   <div class="offer-content">
     <div class="details-wrapper"></div>
     <div class="offer-header">
-      <h1 class="offer-header-title">{{ offer!.asset.id }}</h1>
+      <h1 class="offer-header-title">{{ offer!.getAsset().id }}</h1>
       <h2 class="offer-header-description">
-        {{ offer!.asset.description }}
+        {{ offer!.getAsset().description }}
       </h2>
       <div class="offer-gauge">
         <mwl-gauge

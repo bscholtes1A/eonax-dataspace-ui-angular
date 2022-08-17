@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatTabsModule } from '@angular/material/tabs';
 import { Offer } from 'src/app/models/offer';
 
 @Component({
@@ -16,9 +15,9 @@ export class OfferTabsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    const permissions = this.offer.policy.permissions;
+    const permissions = this.offer.getPolicy().permissions;
     this.isRestricted =
       permissions.length > 0 && permissions[0].constraints.length > 0;
-    this.isDocumented = this.offer.asset.example != undefined;
+    this.isDocumented = this.offer.getAsset().responseExample != undefined;
   }
 }

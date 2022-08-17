@@ -1,22 +1,32 @@
 <div class="offer-tabs">
   <mat-tab-group mat-align-tabs="start">
     <mat-tab label="Documentation" [disabled]="!isDocumented">
-      <div class="code-snippet">
-        <div class="code-snippet-title">Example of response:</div>
-        <div class="code-snippet-body">
+      <mat-card class="user-card">
+        <mat-card-header class="user-card-header">
+          <mat-card-title class="user-card-title">
+            Example of response
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="user-card-content">
           <code>
-            <pre>{{ offer.asset.example | json }}</pre>
+            <pre>{{ offer.getAsset().responseExample | json }}</pre>
           </code>
-        </div>
-      </div>
+        </mat-card-content>
+      </mat-card>
     </mat-tab>
     <mat-tab label="Policy" [disabled]="!isRestricted">
-      <div class="code-snippet-title">Constraints:</div>
-      <div class="code-snippet-body">
-        <code>
-          <pre>{{ offer.policy.permissions[0].constraints | json }}</pre>
-        </code>
-      </div>
+      <mat-card class="user-card">
+        <mat-card-header class="user-card-header">
+          <mat-card-title class="user-card-title">Constraints</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="user-card-content">
+          <code>
+            <pre>{{
+              offer.getPolicy().permissions[0].constraints[0] | json
+            }}</pre>
+          </code>
+        </mat-card-content>
+      </mat-card>
     </mat-tab>
   </mat-tab-group>
 </div>

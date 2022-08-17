@@ -24,19 +24,51 @@
   }
 }
 
-.code-snippet {
-  height: 500px;
+.user-card {
+  background-color: #202020;
+  margin-top: 20px;
+
+  &-container {
+    background-color: #151515;
+    align-items: center;
+    align-content: center;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 500px;
+    // background-color: #202020;
+  }
+
+  &-header {
+    width: 100%;
+    align-content: left;
+  }
+
+  &-avatar {
+    width: 5%;
+  }
+
+  &-img {
+    width: 100%;
+  }
 
   &-title {
-    background-color: #151515;
+    color: white;
     font-size: 24px;
     padding: 10px;
   }
 
-  &-body {
-    position: relative;
-    background-color: #202020;
-    text-align: left;
-    overflow: auto;
+  &-subtitle {
+    color: white;
+    padding: 10px;
+  }
+
+  &-content {
+    &-body {
+      position: relative;
+      text-align: left;
+      overflow: auto;
+      padding: 15px;
+    }
   }
 }
