@@ -1,0 +1,42 @@
+.offer {
+  &-tabs {
+    background-color: #151515;
+    color: white;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    width: 75%;
+
+    ::ng-deep {
+      .mat-tab-labels {
+        align-items: center;
+        height: 80px;
+        justify-content: center;
+        background-color: rgba(75, 52, 168, 0.528);
+      }
+
+      .mat-tab-label {
+        font-size: 32px;
+        color: white;
+      }
+    }
+  }
+}
+
+.code-snippet {
+  height: 500px;
+
+  &-title {
+    background-color: #151515;
+    font-size: 24px;
+    padding: 10px;
+  }
+
+  &-body {
+    position: relative;
+    background-color: #202020;
+    text-align: left;
+    overflow: auto;
+  }
+}

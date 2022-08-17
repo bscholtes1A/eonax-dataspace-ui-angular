@@ -1,0 +1,22 @@
+.app {
+  background-color: #151515;
+}
+
+.header-img {
+  height: 500px;
+  background: left / contain no-repeat url("/assets/logo-eonax.png"),
+    url("/assets/slider-eonax.jpg");
+  background-size: 20%, cover;
+  position: relative;
+}
+
+// .header-text h2 {
+//   color: white;
+//   text-transform: uppercase;
+//   margin: 0;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   font-size: 5rem;
+//   transform: translate(-50%, -50%);
+// }

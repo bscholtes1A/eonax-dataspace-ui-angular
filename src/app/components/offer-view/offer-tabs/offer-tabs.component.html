@@ -1,0 +1,22 @@
+<div class="offer-tabs">
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Documentation" [disabled]="!isDocumented">
+      <div class="code-snippet">
+        <div class="code-snippet-title">Example of response:</div>
+        <div class="code-snippet-body">
+          <code>
+            <pre>{{ offer.asset.example | json }}</pre>
+          </code>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Policy" [disabled]="!isRestricted">
+      <div class="code-snippet-title">Constraints:</div>
+      <div class="code-snippet-body">
+        <code>
+          <pre>{{ offer.policy.permissions[0].constraints | json }}</pre>
+        </code>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

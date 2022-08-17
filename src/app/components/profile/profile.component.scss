@@ -1,0 +1,56 @@
+.user-card {
+  &-container {
+    align-items: center;
+    align-content: center;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    height: 500px;
+  }
+
+  &-header {
+    width: 100%;
+    align-content: left;
+  }
+
+  background-color: #202020;
+
+  &-avatar {
+    width: 5%;
+    // border-radius: 50%;
+  }
+
+  &-img {
+    width: 100%;
+    // border-radius: 50%;
+  }
+
+  &-title {
+    color: white;
+    font-size: 24px;
+    padding: 10px;
+  }
+
+  &-subtitle {
+    color: white;
+    padding: 10px;
+  }
+
+  .code-snippet {
+    &-title {
+      // margin-top: 20px;
+      color: white;
+      font-size: 20px;
+      margin-top: 10px;
+      padding-left: 10px;
+    }
+
+    &-body {
+      position: relative;
+      text-align: left;
+      overflow: auto;
+      padding: 15px;
+    }
+  }
+}

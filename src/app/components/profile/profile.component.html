@@ -1,0 +1,29 @@
+<div class="user-card-container">
+  <mat-card class="user-card">
+    <mat-card-header class="user-card-header">
+      <div mat-card-avatar class="user-card-avatar">
+        <img src="/assets/login2.png" class="user-card-img" />
+      </div>
+      <mat-card-title class="user-card-title">{{
+        participant!.name
+      }}</mat-card-title>
+      <mat-card-subtitle class="user-card-subtitle"
+        >Connector address: {{ participant!.url }}</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content class="user-card-content">
+      <div class="code-snippet-title">Verifiable credentials:</div>
+      <div class="code-snippet-body">
+        <code>
+          <pre>{{ selfDescription.selfDescriptionCredential | json }}</pre>
+        </code>
+      </div>
+      <div class="code-snippet-title">Compliance credentials:</div>
+      <div class="code-snippet-body">
+        <code>
+          <pre>{{ selfDescription.complianceCredential | json }}</pre>
+        </code>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

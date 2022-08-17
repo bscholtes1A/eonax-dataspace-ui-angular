@@ -1,0 +1,33 @@
+<div class="details">
+  <div class="offer-banner">
+    <img
+      class="offer-banner-img"
+      src="{{ offer!.asset.logoUrl }}"
+      alt="background image"
+    />
+  </div>
+  <div class="offer-content">
+    <div class="details-wrapper"></div>
+    <div class="offer-header">
+      <h1 class="offer-header-title">{{ offer!.asset.id }}</h1>
+      <h2 class="offer-header-description">
+        {{ offer!.asset.description }}
+      </h2>
+      <div class="offer-gauge">
+        <mwl-gauge
+          class="two"
+          [max]="100"
+          [dialStartAngle]="180"
+          [dialEndAngle]="180"
+          [value]="popularity"
+          [animated]="true"
+          [animationDuration]="2"
+          [color]="getColor"
+        >
+        </mwl-gauge>
+        <a class="offer-gauge-label" target="_blank">Popularity </a>
+      </div>
+      <app-offer-tabs [offer]="offer!"></app-offer-tabs>
+    </div>
+  </div>
+</div>

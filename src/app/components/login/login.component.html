@@ -1,0 +1,52 @@
+<div class="login-container">
+  <form
+    class="login-form"
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate
+  >
+    <div class="form-group">
+      <div class="login-logo-container">
+        <img src="/assets/login2.png" alt="logo" class="login-logo" />
+      </div>
+    </div>
+    <div class="form-group">
+      <input
+        type="text"
+        class="login-input"
+        name="username"
+        list="users"
+        placeholder="Participant name..."
+        [(ngModel)]="form.username"
+        required
+        #username="ngModel"
+      />
+    </div>
+    <datalist id="users">
+      <option *ngFor="let item of participants">{{ item.name }}</option>
+    </datalist>
+    <div class="form-group">
+      <input
+        type="password"
+        class="login-input"
+        name="password"
+        placeholder="Password"
+        [(ngModel)]="form.password"
+        required
+        #password="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="(isLoginFailed || password.errors) && f.submitted"
+      >
+        <div *ngIf="password.errors?.['required']">Password is required</div>
+        <div *ngIf="isLoginFailed">{{ errorMessage }}</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="login-button">Login</button>
+    </div>
+  </form>
+</div>
