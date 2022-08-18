@@ -9,7 +9,7 @@
         </mat-card-header>
         <mat-card-content class="user-card-content">
           <code>
-            <pre>{{ offer.getAsset().responseExample | json }}</pre>
+            <pre>{{ offer.asset.responseExample | json }}</pre>
           </code>
         </mat-card-content>
       </mat-card>
@@ -21,9 +21,7 @@
         </mat-card-header>
         <mat-card-content class="user-card-content">
           <code>
-            <pre>{{
-              offer.getPolicy().permissions[0].constraints[0] | json
-            }}</pre>
+            <pre>{{ offer.policy.permissions[0].constraints[0] | json }}</pre>
           </code>
         </mat-card-content>
       </mat-card>

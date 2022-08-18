@@ -1,34 +1,37 @@
 <div class="offers">
-  <ng-container *ngFor="let offer of offers">
-    <div class="offer" (click)="openOfferDetails(offer.getId())">
+  <ng-container *ngFor="let co of contractOffers">
+    <div
+      class="offer"
+      (click)="openOfferDetails(co.offer.id)"
+      [ngStyle]="{ 'background-color': getOfferBackgroundColor(co) }"
+      matTooltip="hello world"
+      matTooltipPosition="above"
+    >
       <div class="offer-logo-container">
         <img
-          src="{{ offer.getAsset().logoUrl }}"
+          src="{{ co.offer.asset.logoUrl }}"
           alt="offer-logo"
           class="offer-logo"
         />
       </div>
-
-      <!-- <p *ngIf="!offer.asset.properties.has('logoUrl')">No image</p> -->
       <div class="offer-description">
-        <p class="offer-name">{{ offer.getAsset().id }}</p>
-        <!-- <button class="offer-button">View more</button> -->
-        <div class="offer-tags">
+        <p class="offer-name">{{ co.offer.asset.id }}</p>
+        <div class="offer-tags" *ngIf="co.offer.asset.keywords">
           <img
             class="offer-tag"
-            *ngIf="offer.getAsset().keywords.includes('events')"
+            *ngIf="co.offer.asset.keywords.includes('events')"
             src="/assets/kafka.png"
             alt="slug"
           />
           <img
             class="offer-tag"
-            *ngIf="offer.getAsset().keywords.includes('get')"
+            *ngIf="co.offer.asset.keywords.includes('get')"
             src="/assets/rest2.png"
             alt="slug"
           />
           <img
             class="offer-tag"
-            *ngIf="offer.getAsset().monetized"
+            *ngIf="co.offer.asset.monetized"
             src="/assets/cash.jpg"
             alt="slug"
           />

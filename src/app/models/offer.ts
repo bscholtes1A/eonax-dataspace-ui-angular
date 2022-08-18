@@ -2,33 +2,17 @@ import { Asset } from './asset';
 import { Policy } from './policy';
 
 export class Offer {
-  private contractEndDate: Date | undefined;
+  static readonly ID: string = 'id';
+  static readonly POLICY: string = 'policy';
+  static readonly ASSET: string = 'asset';
 
-  constructor(
-    private id: string,
-    private policy: Policy,
-    private asset: Asset
-  ) {}
+  readonly id!: string;
+  readonly asset!: Asset;
+  readonly policy!: Policy;
 
-  getId(): string {
-    return this.id;
-  }
-
-  getPolicy(): Policy {
-    return this.policy;
-  }
-
-  getAsset(): Asset {
-    return this.asset;
-  }
-
-  setContractEndDate(endDate: Date): void {
-    this.contractEndDate = endDate;
-  }
-
-  hasValidContract(): boolean {
-    return (
-      this.contractEndDate !== undefined && this.contractEndDate > new Date()
-    );
+  constructor(obj: any) {
+    this.id = obj[Offer.ID]!;
+    this.asset = new Asset(obj[Offer.ASSET]!);
+    this.policy = obj[Offer.POLICY]!;
   }
 }

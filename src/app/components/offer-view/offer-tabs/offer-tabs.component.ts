@@ -15,9 +15,9 @@ export class OfferTabsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    const permissions = this.offer.getPolicy().permissions;
+    const permissions = this.offer.policy.permissions;
     this.isRestricted =
       permissions.length > 0 && permissions[0].constraints.length > 0;
-    this.isDocumented = this.offer.getAsset().responseExample != undefined;
+    this.isDocumented = this.offer.asset.responseExample != undefined;
   }
 }

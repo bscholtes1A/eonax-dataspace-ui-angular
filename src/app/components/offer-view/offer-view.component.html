@@ -1,17 +1,17 @@
-<div class="details">
-  <div class="offer-banner">
+<div class="details" *ngIf="offer">
+  <div class="offer-banner" *ngIf="offer.asset.logoUrl">
     <img
       class="offer-banner-img"
-      src="{{ offer!.getAsset().logoUrl }}"
+      src="{{ offer.asset.logoUrl }}"
       alt="background image"
     />
   </div>
   <div class="offer-content">
     <div class="details-wrapper"></div>
     <div class="offer-header">
-      <h1 class="offer-header-title">{{ offer!.getAsset().id }}</h1>
-      <h2 class="offer-header-description">
-        {{ offer!.getAsset().description }}
+      <h1 class="offer-header-title">{{ offer.asset.id }}</h1>
+      <h2 class="offer-header-description" *ngIf="offer.asset.description">
+        {{ offer.asset.description }}
       </h2>
       <div class="offer-gauge">
         <mwl-gauge
@@ -27,7 +27,7 @@
         </mwl-gauge>
         <a class="offer-gauge-label" target="_blank">Popularity </a>
       </div>
-      <app-offer-tabs [offer]="offer!"></app-offer-tabs>
+      <app-offer-tabs [offer]="offer"></app-offer-tabs>
     </div>
   </div>
 </div>

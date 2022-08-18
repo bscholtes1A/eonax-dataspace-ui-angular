@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Asset } from '../models/asset';
 import { Offer } from '../models/offer';
 import { Participant } from '../models/participant';
 
@@ -27,7 +26,7 @@ export class HttpService {
     const body = { criteria: [] };
     return this.http
       .post<Array<any>>(connectorUrl + `/api/federatedcatalog`, body)
-      .pipe(map((dtos) => dtos.map((dto) => this.toOffer(dto))));
+      .pipe(map((dtos) => dtos.map((dto) => new Offer(dto))));
   }
 
   getOfferByAssetId(connectorUrl: string, assetId: string): Observable<Offer> {
@@ -45,23 +44,6 @@ export class HttpService {
   }
 
   private compareByAssetId(offer: Offer, assetId: string): boolean {
-    return offer.getAsset().id === assetId;
-  }
-
-  private toOffer(dto: any): Offer {
-    return new Offer(dto.id, dto.policy, this.toAsset(dto['asset']));
-  }
-
-  private toAsset(dto: any): Asset {
-    const props = dto['properties'];
-    const m = props['monetized'] !== undefined ? props['monetized'] : false;
-    return {
-      id: props['asset:prop:id'],
-      description: props['asset:prop:description'],
-      logoUrl: props['logoUrl'],
-      responseExample: props['example'],
-      keywords: props['keywords'],
-      monetized: m,
-    };
+    return offer.asset.id === assetId;
   }
 }
