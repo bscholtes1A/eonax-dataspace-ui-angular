@@ -38,8 +38,8 @@ export class ProfileComponent
   private fetchSelfDescription(): void {
     this.selfDescriptionSub = this.httpService
       .getSelfDescription(this.participant!.url)
-      .subscribe((response: any) => {
-        this.selfDescription = response;
+      .subscribe((selfDescriptionResponse: any) => {
+        this.selfDescription = selfDescriptionResponse;
       });
   }
 }

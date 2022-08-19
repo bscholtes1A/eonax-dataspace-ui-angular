@@ -20,6 +20,8 @@ import { OfferTabsComponent } from './components/offer-view/offer-tabs/offer-tab
 import { OfferViewComponent } from './components/offer-view/offer-view.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MatCardModule } from '@angular/material/card';
+import { NgxLoadingButtonsModule } from 'ngx-loading-buttons';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { MatCardModule } from '@angular/material/card';
     MatTabsModule,
     MatCardModule,
     MatIconModule,
+    MatButtonModule,
+    NgxLoadingButtonsModule,
   ],
   providers: [
     {

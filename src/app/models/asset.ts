@@ -1,17 +1,19 @@
 export class Asset {
-  static readonly PROPERTIES: string = 'properties';
-  static readonly MONETIZED: string = 'monetized';
-  static readonly PROPS_ID: string = 'asset:prop:id';
-  static readonly PROPS_DESCRIPTION: string = 'asset:prop:description';
-  static readonly PROPS_LOGO_URL: string = 'logoUrl';
-  static readonly PROPS_RESP_EXAMPLE: string = 'example';
-  static readonly PROPS_KEYWORDS: string = 'keywords';
+  static readonly PROPERTIES = 'properties';
+  static readonly MONETIZED = 'monetized';
+  static readonly PROPS_ID = 'asset:prop:id';
+  static readonly PROPS_DESCRIPTION = 'asset:prop:description';
+  static readonly PROPS_LOGO_URL = 'logoUrl';
+  static readonly PROPS_ORIGINATOR = 'asset:prop:originator';
+  static readonly PROPS_RESP_EXAMPLE = 'example';
+  static readonly PROPS_KEYWORDS = 'keywords';
 
   readonly id!: string;
   readonly description: string;
   readonly logoUrl: string;
   readonly responseExample: object;
   readonly monetized: boolean;
+  readonly originator: string;
   readonly keywords: Array<string>;
 
   // constructor(
@@ -38,6 +40,7 @@ export class Asset {
     this.id = props[Asset.PROPS_ID]!;
     this.description = props[Asset.PROPS_DESCRIPTION];
     this.logoUrl = props[Asset.PROPS_LOGO_URL];
+    this.originator = props[Asset.PROPS_ORIGINATOR];
     this.responseExample = props[Asset.PROPS_RESP_EXAMPLE];
     this.keywords = props[Asset.PROPS_KEYWORDS];
     this.monetized = m;

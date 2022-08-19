@@ -1,18 +1,43 @@
-<div class="details" *ngIf="offer">
-  <div class="offer-banner" *ngIf="offer.asset.logoUrl">
+<div class="details" *ngIf="contractOffer">
+  <div class="offer-banner" *ngIf="contractOffer.offer.asset.logoUrl">
     <img
       class="offer-banner-img"
-      src="{{ offer.asset.logoUrl }}"
+      src="{{ contractOffer.offer.asset.logoUrl }}"
       alt="background image"
     />
   </div>
   <div class="offer-content">
     <div class="details-wrapper"></div>
     <div class="offer-header">
-      <h1 class="offer-header-title">{{ offer.asset.id }}</h1>
-      <h2 class="offer-header-description" *ngIf="offer.asset.description">
-        {{ offer.asset.description }}
+      <h1 class="offer-header-title">{{ contractOffer.offer.asset.id }}</h1>
+      <h2
+        class="offer-header-description"
+        *ngIf="contractOffer.offer.asset.description"
+      >
+        {{ contractOffer.offer.asset.description }}
       </h2>
+      <div class="button-container">
+        <button
+          mat-raised-button
+          (click)="requestAccess()"
+          [disabled]="
+            isAccessRequestSuccess ||
+            accessRequestOngoing ||
+            contractOffer.contract!.isValid()
+          "
+          [title]="getButtonHoverMessage()"
+        >
+          {{
+            accessRequestOngoing === true ? "Request ongoing" : "Request access"
+          }}
+        </button>
+        <div class="alert alert-danger" *ngIf="isAccessRequestFailed">
+          <strong>Error!</strong> {{ accessRequestError }}
+        </div>
+        <div class="alert alert-success" *ngIf="isAccessRequestSuccess">
+          <strong>Access granted!</strong> {{ accessGrantedMessage }}
+        </div>
+      </div>
       <div class="offer-gauge">
         <mwl-gauge
           class="two"
@@ -22,12 +47,12 @@
           [value]="popularity"
           [animated]="true"
           [animationDuration]="2"
-          [color]="getColor"
+          [color]="getGaugeColor"
         >
         </mwl-gauge>
         <a class="offer-gauge-label" target="_blank">Popularity </a>
       </div>
-      <app-offer-tabs [offer]="offer"></app-offer-tabs>
+      <app-offer-tabs [offer]="contractOffer.offer"></app-offer-tabs>
     </div>
   </div>
 </div>

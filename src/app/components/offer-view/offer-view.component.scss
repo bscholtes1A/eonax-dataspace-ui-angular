@@ -75,3 +75,26 @@
     }
   }
 }
+
+.button-container {
+  margin: 30px;
+}
+
+.mat-raised-button {
+  background-color: #3f51b5;
+  font-size: 20px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: white;
+
+  &:disabled {
+    background-color: #3f51b559;
+  }
+}
+
+.alert {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}

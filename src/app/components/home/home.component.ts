@@ -1,12 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { catchError, Subscription } from 'rxjs';
 import { Contract } from 'src/app/models/contract';
 import { ContractOffer } from 'src/app/models/contract-offer';
 import { Offer } from 'src/app/models/offer';
 import { HttpService } from 'src/app/services/http.service';
 import { SessionManagerService } from 'src/app/services/session-manager.service';
+import { UtilsService } from 'src/app/services/utils.service';
 import { AbstractAuthenticatedComponent } from '../abstracts/abstract-authenticated.component';
 
 @Component({
@@ -24,6 +25,7 @@ export class HomeComponent
 
   constructor(
     private httpService: HttpService,
+    private utils: UtilsService,
     sessionManager: SessionManagerService,
     private router: Router
   ) {
@@ -43,7 +45,7 @@ export class HomeComponent
     }
   }
 
-  openOfferDetails(id: string): void {
+  openOfferView(id: string): void {
     this.router.navigate(['offer', id]);
   }
 
@@ -56,30 +58,38 @@ export class HomeComponent
   fetchContractOffers() {
     this.offerSub = this.httpService
       .getAllOffers(this.participant!.url)
-      .subscribe((offerResponse: Array<Offer>) => {
-        this.contractOffers = offerResponse.map(
-          (o) => new ContractOffer(o, this.fetchContract(o))
-        );
+      .subscribe((offersResponse: Array<Offer>) => {
+        offersResponse.forEach((offer) => this.fetchContractAndRegister(offer));
       });
   }
 
-  fetchContract(offer: Offer): Contract | undefined {
+  fetchContractAndRegister(offer: Offer): void {
     if (offer.asset.keywords.includes('events')) {
-      return Contract.alwaysValid();
+      this.contractOffers.push({
+        offer: offer,
+        contract: Contract.alwaysValid(),
+      });
     } else {
-      //TODO fetch contracts here
-      return undefined;
+      const assetId = this.utils.extractAssetIdFromOfferId(offer.id);
+      this.contractSub = this.httpService
+        .getContract(this.participant!.url, assetId)
+        .subscribe({
+          next: (contractResponse: Contract) => {
+            this.contractOffers.push({
+              offer: offer,
+              contract: contractResponse,
+            });
+          },
+          error: (e) => {
+            this.contractOffers.push({
+              offer: offer,
+            });
+          },
+        });
     }
-  }
-
-  getOfferBackgroundColor(contractOffer: ContractOffer): string {
-    if (contractOffer.hasContract() && contractOffer.contract!.isValid()) {
-      return 'rgba(75, 52, 168, 0.528)';
-    }
-    return '#202020';
   }
 
   getOfferHoverText(contractOffer: ContractOffer): string {
-    return 'hello world!';
+    return this.utils.getContractOfferDisponibility(contractOffer);
   }
 }

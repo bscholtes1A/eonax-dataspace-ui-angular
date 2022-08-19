@@ -1,6 +1,7 @@
 ::ng-deep {
   .mat-tooltip {
-    color: white;
+    color: white !important;
+    font-size: 24px;
   }
 
   .mat-form-field-infix {
