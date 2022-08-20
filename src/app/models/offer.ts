@@ -15,4 +15,8 @@ export class Offer {
     this.asset = new Asset(obj[Offer.ASSET]!);
     this.policy = obj[Offer.POLICY]!;
   }
+
+  isEvent(): boolean {
+    return this.asset.keywords.includes('events');
+  }
 }

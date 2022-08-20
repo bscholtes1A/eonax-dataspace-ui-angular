@@ -2,14 +2,13 @@
   <ng-container *ngFor="let co of contractOffers">
     <div
       class="offer"
-      (click)="openOfferView(co.offer.id)"
+      (click)="openOfferView(co.offer.asset.id)"
       [ngStyle]="{
-        'background-color':
-          co.contract !== undefined && co.contract.isValid()
-            ? 'rgba(75, 52, 168, 0.528)'
-            : '#202020'
+        'background-color': co.getContract().isValid()
+          ? 'rgba(75, 52, 168, 0.528)'
+          : '#202020'
       }"
-      [title]="getOfferHoverText(co)"
+      [title]="co.getContract().availability()"
     >
       <div class="offer-logo-container">
         <img

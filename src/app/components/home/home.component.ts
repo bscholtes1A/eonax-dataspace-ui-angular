@@ -1,13 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Contract } from 'src/app/models/contract';
 import { ContractOffer } from 'src/app/models/contract-offer';
 import { Offer } from 'src/app/models/offer';
 import { HttpService } from 'src/app/services/http.service';
 import { SessionManagerService } from 'src/app/services/session-manager.service';
-import { UtilsService } from 'src/app/services/utils.service';
 import { AbstractAuthenticatedComponent } from '../abstracts/abstract-authenticated.component';
 
 @Component({
@@ -25,7 +23,6 @@ export class HomeComponent
 
   constructor(
     private httpService: HttpService,
-    private utils: UtilsService,
     sessionManager: SessionManagerService,
     private router: Router
   ) {
@@ -53,43 +50,26 @@ export class HomeComponent
     this.router.navigate(['login']);
   }
 
-  onSubmit(form: NgForm) {}
-
   fetchContractOffers() {
     this.offerSub = this.httpService
       .getAllOffers(this.participant!.url)
       .subscribe((offersResponse: Array<Offer>) => {
-        offersResponse.forEach((offer) => this.fetchContractAndRegister(offer));
+        this.contractOffers = offersResponse.map((o) =>
+          ContractOffer.noContract(o)
+        );
+        this.contractOffers.forEach((co) => this.fetchContract(co));
       });
   }
 
-  fetchContractAndRegister(offer: Offer): void {
-    if (offer.asset.keywords.includes('events')) {
-      this.contractOffers.push({
-        offer: offer,
-        contract: Contract.alwaysValid(),
-      });
+  fetchContract(co: ContractOffer): void {
+    if (co.offer.isEvent()) {
+      co.updateContract(Contract.unlimited());
     } else {
-      const assetId = this.utils.extractAssetIdFromOfferId(offer.id);
       this.contractSub = this.httpService
-        .getContract(this.participant!.url, assetId)
-        .subscribe({
-          next: (contractResponse: Contract) => {
-            this.contractOffers.push({
-              offer: offer,
-              contract: contractResponse,
-            });
-          },
-          error: (e) => {
-            this.contractOffers.push({
-              offer: offer,
-            });
-          },
-        });
+        .getContract(this.participant!.url, co.offer.asset.id)
+        .subscribe((contractResponse: Contract) =>
+          co.updateContract(contractResponse)
+        );
     }
-  }
-
-  getOfferHoverText(contractOffer: ContractOffer): string {
-    return this.utils.getContractOfferDisponibility(contractOffer);
   }
 }

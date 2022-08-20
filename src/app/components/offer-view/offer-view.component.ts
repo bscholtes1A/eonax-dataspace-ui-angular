@@ -9,7 +9,6 @@ import { Offer } from 'src/app/models/offer';
 import { TransferRequestDto } from 'src/app/models/transfer-request-dto';
 import { HttpService } from 'src/app/services/http.service';
 import { SessionManagerService } from 'src/app/services/session-manager.service';
-import { UtilsService } from 'src/app/services/utils.service';
 import { AbstractAuthenticatedComponent } from '../abstracts/abstract-authenticated.component';
 
 const POPULARITY = 80;
@@ -41,7 +40,6 @@ export class OfferViewComponent
     private activatedRoute: ActivatedRoute,
     private httpService: HttpService,
     private router: Router,
-    private utils: UtilsService,
     sessionManager: SessionManagerService
   ) {
     super(router, sessionManager);
@@ -75,14 +73,12 @@ export class OfferViewComponent
     }
   }
 
-  fetchContractOffer(id: string): void {
+  fetchContractOffer(assetId: string): void {
     this.offerSub = this.httpService
-      .getOfferByAssetId(
-        this.participant!.url,
-        this.utils.extractAssetIdFromOfferId(id)
-      )
+      .getOfferByAssetId(this.participant!.url, assetId)
       .subscribe((offerResponse: Offer) => {
-        this.fetchContract(offerResponse);
+        this.contractOffer = ContractOffer.noContract(offerResponse);
+        this.fetchContract(this.contractOffer);
 
         setTimeout(() => {
           this.popularity = POPULARITY;
@@ -90,22 +86,15 @@ export class OfferViewComponent
       });
   }
 
-  fetchContract(offer: Offer): void {
-    if (offer.asset.keywords.includes('events')) {
-      this.contractOffer = {
-        offer: offer,
-        contract: Contract.alwaysValid(),
-      };
+  fetchContract(co: ContractOffer): void {
+    if (co.offer.isEvent()) {
+      this.contractOffer?.updateContract(Contract.unlimited());
     } else {
-      const assetId = this.utils.extractAssetIdFromOfferId(offer.id);
       this.contractSub = this.httpService
-        .getContract(this.participant!.url, assetId)
-        .subscribe((contractResponse: Contract) => {
-          this.contractOffer = {
-            offer: offer,
-            contract: contractResponse,
-          };
-        });
+        .getContract(this.participant!.url, co.offer.asset.id)
+        .subscribe((contractResponse: Contract) =>
+          co.updateContract(contractResponse)
+        );
     }
   }
 
@@ -169,10 +158,6 @@ export class OfferViewComponent
     this.accessRequestError = error;
     this.isAccessRequestFailed = true;
     this.accessRequestOngoing = false;
-  }
-
-  getButtonHoverMessage(): string {
-    return this.utils.getContractOfferDisponibility(this.contractOffer!);
   }
 
   getGaugeColor(value: number): string {

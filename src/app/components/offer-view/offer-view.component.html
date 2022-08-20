@@ -23,9 +23,9 @@
           [disabled]="
             isAccessRequestSuccess ||
             accessRequestOngoing ||
-            contractOffer.contract!.isValid()
+            contractOffer.getContract().isValid()
           "
-          [title]="getButtonHoverMessage()"
+          [title]="contractOffer.getContract().availability()"
         >
           {{
             accessRequestOngoing === true ? "Request ongoing" : "Request access"
