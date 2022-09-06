@@ -20,8 +20,8 @@ import { OfferTabsComponent } from './components/offer-view/offer-tabs/offer-tab
 import { OfferViewComponent } from './components/offer-view/offer-view.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MatCardModule } from '@angular/material/card';
-import { NgxLoadingButtonsModule } from 'ngx-loading-buttons';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    NgxLoadingButtonsModule,
+    MatDividerModule,
   ],
   providers: [
     {

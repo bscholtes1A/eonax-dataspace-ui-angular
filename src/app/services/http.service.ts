@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, retry } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { Asset } from '../models/asset';
+import { Policy } from '../models/policy';
 import { Contract } from '../models/contract';
-import { ContractAgreementDto } from '../models/contract-agreement-dto';
 import { NegotiationRequestDto } from '../models/negotiation-request-dto';
 import { Offer } from '../models/offer';
 import { Participant } from '../models/participant';
@@ -15,15 +15,18 @@ import { TransferRequestDto } from '../models/transfer-request-dto';
 export class HttpService {
   constructor(private http: HttpClient) {}
 
-  getAllParticipants(): Observable<Array<Participant>> {
-    environment.REGISTRY_SERVICE_URL;
+  getAllParticipants(
+    registryServiceUrl: string
+  ): Observable<Array<Participant>> {
     return this.http.get<Array<Participant>>(
-      environment.REGISTRY_SERVICE_URL + `/api/registry/participants`
+      registryServiceUrl + `/api/registry/participants`
     );
   }
 
   getSelfDescription(connectorUrl: string): Observable<any> {
-    return this.http.get<Array<Participant>>(connectorUrl + `/api/credentials`);
+    return this.http.get<Array<Participant>>(
+      connectorUrl + `/api/identity-hub/self-description`
+    );
   }
 
   getAllOffers(connectorUrl: string): Observable<Array<Offer>> {
@@ -49,10 +52,20 @@ export class HttpService {
     );
   }
 
-  getContract(connectorUrl: string, assetId: string): Observable<Contract> {
-    return this.http
-      .get<string>(connectorUrl + `/api/enddate/` + assetId)
-      .pipe(map((endDate) => new Contract(this.parseDate(endDate))));
+  getContractsByAssetId(
+    connectorUrl: string,
+    assetId: string
+  ): Observable<Array<Contract>> {
+    return this.http.get<Array<Contract>>(
+      connectorUrl + `/api/contractagreements`,
+      {
+        params: {
+          sortField: 'contractSigningDate',
+          sort: 'DESC',
+          filter: 'assetId=urn:artifact:' + assetId,
+        },
+      }
+    );
   }
 
   startNegotiation(
@@ -64,12 +77,25 @@ export class HttpService {
       .pipe(map((resp) => resp.id));
   }
 
-  getAgreement(
-    connectorUrl: string,
-    negotiationId: string
-  ): Observable<ContractAgreementDto> {
+  getAllAssets(connectorUrl: string): Observable<Array<Asset>> {
     return this.http
-      .get<ContractAgreementDto>(
+      .get<Array<any>>(connectorUrl + `/api/assets`, {})
+      .pipe(map((dtos) => dtos.map((dto) => new Asset(dto))));
+  }
+
+  getAllPolicyDefinitions(connectorUrl: string): Observable<Array<Policy>> {
+    return this.http.get<Array<Policy>>(
+      connectorUrl + `/api/policydefinitions`
+    );
+  }
+
+  getAllContractDefinitions(connectorUrl: string): Observable<Array<any>> {
+    return this.http.get<Array<any>>(connectorUrl + `/api/contractdefinitions`);
+  }
+
+  getAgreement(connectorUrl: string, negotiationId: string): Observable<any> {
+    return this.http
+      .get<any>(
         connectorUrl +
           `/api/contractnegotiations/` +
           negotiationId +
@@ -85,11 +111,6 @@ export class HttpService {
     return this.http
       .post<any>(connectorUrl + `/api/transferprocess`, dto)
       .pipe(map((resp) => resp.id));
-  }
-
-  private parseDate(date: string): Date {
-    const parsed = Date.parse(date.replace('"', ''));
-    return new Date(parsed);
   }
 
   private compareByAssetId(offer: Offer, assetId: string): boolean {

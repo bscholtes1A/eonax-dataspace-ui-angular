@@ -57,19 +57,21 @@ export class HomeComponent
         this.contractOffers = offersResponse.map((o) =>
           ContractOffer.noContract(o)
         );
-        this.contractOffers.forEach((co) => this.fetchContract(co));
+        this.fetchContracts();
       });
   }
 
-  fetchContract(co: ContractOffer): void {
-    if (co.offer.isEvent()) {
-      co.updateContract(Contract.unlimited());
-    } else {
+  fetchContracts(): void {
+    this.contractOffers.forEach((co, index) => {
       this.contractSub = this.httpService
-        .getContract(this.participant!.url, co.offer.asset.id)
-        .subscribe((contractResponse: Contract) =>
-          co.updateContract(contractResponse)
-        );
-    }
+        .getContractsByAssetId(this.participant!.url, co.offer.asset.id)
+        .subscribe((contractsResponse: Array<Contract>) => {
+          if (contractsResponse.length > 0) {
+            this.contractOffers[index] = co.updateContract(
+              contractsResponse[0]
+            );
+          }
+        });
+    });
   }
 }

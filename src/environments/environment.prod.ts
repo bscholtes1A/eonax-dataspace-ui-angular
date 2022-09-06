@@ -1,5 +1,5 @@
 export const environment = {
+  registryServiceUrl:
+    'http://registration-service-eonax-dev.apps.zr03wq4z.uksouth.aroapp.io',
   production: true,
-  REGISTRY_SERVICE_URL:
-    'http://registry-service-eonax-playground.apps.zr03wq4z.uksouth.aroapp.io',
 };

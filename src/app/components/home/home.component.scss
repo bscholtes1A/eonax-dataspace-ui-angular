@@ -51,19 +51,18 @@
   flex-wrap: wrap;
   justify-content: center;
   max-width: 100%;
-  width: 100%;
+  width: 150%;
   margin: 20px auto;
-  background-color: #151515;
+  background-color: transparent;
 }
 
 .offer {
   width: 280px;
-  background-color: #f865dd24;
   margin: 30px;
   height: 330px;
   overflow: hidden;
-  border-radius: 5px;
-  box-shadow: 4px 3px 8px 0px rgb(200, 152, 44);
+  border-radius: 10px;
+  box-shadow: 4px 3px 8px 0px rgb(191, 188, 182);
   transition-duration: 0.3s;
   cursor: pointer;
 
@@ -78,7 +77,6 @@
     // margin-left: 25%;
     height: 25%;
     width: 100%;
-    color: #fff;
   }
 
   &-logo {
@@ -98,7 +96,7 @@
   }
 
   &-name {
-    color: #fff;
+    color: black;
     font-weight: 700;
     font-size: 22px;
     margin-bottom: 40px;
@@ -107,33 +105,12 @@
     overflow: hidden;
   }
 
-  &-button {
-    width: 40%;
-    margin-left: 30%;
-    background: #3f51b5;
-    padding: 10px;
-    border-left: 1px solid rgba(0, 0, 0, 0.3);
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    color: #fff;
-    font-weight: 700;
-    transition-duration: 0.3s;
-    cursor: pointer;
-
-    &:hover {
-      color: #3f51b5;
-      background-color: #fff;
-      border: 1px solid #3f51b5;
-    }
-  }
-
   &-tags {
     display: flex;
   }
 
   &-tag {
-    width: 70px;
+    max-width: 70px;
+    max-height: 70px;
   }
 }

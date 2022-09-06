@@ -4,6 +4,7 @@ import { Participant } from 'src/app/models/participant';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpService } from 'src/app/services/http.service';
 import { SessionManagerService } from 'src/app/services/session-manager.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -71,7 +72,7 @@ export class LoginComponent implements OnInit {
 
   registerParticipants() {
     this.httpService
-      .getAllParticipants()
+      .getAllParticipants(environment.registryServiceUrl)
       .subscribe((response: Array<Participant>) => {
         this.participants = response;
       });

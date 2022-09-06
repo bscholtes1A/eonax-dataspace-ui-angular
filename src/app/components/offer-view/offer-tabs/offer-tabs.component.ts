@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Offer } from 'src/app/models/offer';
+import { ContractOffer } from 'src/app/models/contract-offer';
 
 @Component({
   selector: 'app-offer-tabs',
@@ -8,16 +8,16 @@ import { Offer } from 'src/app/models/offer';
 })
 export class OfferTabsComponent implements OnInit {
   @Input()
-  offer!: Offer;
+  co!: ContractOffer;
   isDocumented = false;
   isRestricted = false;
 
   constructor() {}
 
   ngOnInit(): void {
-    const permissions = this.offer.policy.permissions;
+    const permissions = this.co.offer.policy.permissions;
     this.isRestricted =
       permissions.length > 0 && permissions[0].constraints.length > 0;
-    this.isDocumented = this.offer.asset.responseExample != undefined;
+    this.isDocumented = this.co.offer.asset.responseExample != undefined;
   }
 }

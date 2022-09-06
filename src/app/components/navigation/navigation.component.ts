@@ -44,6 +44,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.toLoginPage();
   }
 
+  toProfilePage(): void {
+    this.router.navigate(['profile']);
+  }
+
   toLoginPage(): void {
     this.router.navigate(['login']);
   }

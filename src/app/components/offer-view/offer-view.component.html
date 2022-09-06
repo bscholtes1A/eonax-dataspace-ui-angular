@@ -23,9 +23,9 @@
           [disabled]="
             isAccessRequestSuccess ||
             accessRequestOngoing ||
-            contractOffer.getContract().isValid()
+            contractOffer.contract.isValid()
           "
-          [title]="contractOffer.getContract().availability()"
+          [title]="contractOffer.contract.availability()"
         >
           {{
             accessRequestOngoing === true ? "Request ongoing" : "Request access"
@@ -38,7 +38,7 @@
           <strong>Access granted!</strong> {{ accessGrantedMessage }}
         </div>
       </div>
-      <div class="offer-gauge">
+      <!-- <div class="offer-gauge">
         <mwl-gauge
           class="two"
           [max]="100"
@@ -51,8 +51,8 @@
         >
         </mwl-gauge>
         <a class="offer-gauge-label" target="_blank">Popularity </a>
-      </div>
-      <app-offer-tabs [offer]="contractOffer.offer"></app-offer-tabs>
+      </div> -->
+      <app-offer-tabs [co]="contractOffer"></app-offer-tabs>
     </div>
   </div>
 </div>

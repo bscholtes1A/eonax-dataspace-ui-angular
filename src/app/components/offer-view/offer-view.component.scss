@@ -21,7 +21,7 @@
     }
 
     .value-text {
-      fill: white;
+      fill: black;
       font-weight: 700;
       font-size: 24px;
     }
@@ -35,7 +35,7 @@
 
     &-label {
       font-size: 20px;
-      color: white;
+      color: black;
       position: relative;
       bottom: 60px;
     }
@@ -64,13 +64,13 @@
   &-header {
     &-title {
       font-size: 70px;
-      color: white;
+      color: black;
       font-weight: 700;
       line-height: 70px;
     }
 
     &-description {
-      color: white;
+      color: rgba(0, 0, 0, 0.614);
       font-weight: 700;
     }
   }

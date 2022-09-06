@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  REGISTRY_SERVICE_URL:
-    'http://registry-service-eonax-dev.apps.zr03wq4z.uksouth.aroapp.io',
+  registryServiceUrl:
+    'http://registration-service-eonax-dev.apps.zr03wq4z.uksouth.aroapp.io',
   production: false,
 };
 

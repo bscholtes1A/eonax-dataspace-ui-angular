@@ -4,11 +4,9 @@
       class="offer"
       (click)="openOfferView(co.offer.asset.id)"
       [ngStyle]="{
-        'background-color': co.getContract().isValid()
-          ? 'rgba(75, 52, 168, 0.528)'
-          : '#202020'
+        'background-color': co.contract.isValid() ? '#f1f1f1' : '#ffffff'
       }"
-      [title]="co.getContract().availability()"
+      [title]="co.contract.availability()"
     >
       <div class="offer-logo-container">
         <img
@@ -22,8 +20,8 @@
         <div class="offer-tags" *ngIf="co.offer.asset.keywords">
           <img
             class="offer-tag"
-            *ngIf="co.offer.asset.keywords.includes('events')"
-            src="/assets/kafka.png"
+            *ngIf="co.offer.isEvent()"
+            src="/assets/kafka-light.png"
             alt="slug"
           />
           <img

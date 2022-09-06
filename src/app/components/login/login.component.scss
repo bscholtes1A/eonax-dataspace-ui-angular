@@ -3,9 +3,6 @@
     height: 600px;
     display: flex;
     justify-content: flex-start;
-    // align-items: center;
-    //    position: relative;
-    //align-content: center;
     padding: 20px;
   }
 
@@ -37,8 +34,8 @@
     margin: auto;
     overflow: hidden;
     border-radius: 10px;
-    background-color: #202020;
-    // box-shadow: 4px 4px 4px 4px rgb(200, 152, 44);
+    background-color: #f1f1f1;
+    box-shadow: 4px 3px 8px 0px rgb(191, 188, 182);
     transition-duration: 0.3s;
     cursor: pointer;
 

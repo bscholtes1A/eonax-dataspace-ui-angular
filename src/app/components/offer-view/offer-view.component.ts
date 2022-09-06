@@ -2,7 +2,6 @@ import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { catchError, Subscription, throwError } from 'rxjs';
 import { Contract } from 'src/app/models/contract';
-import { ContractAgreementDto } from 'src/app/models/contract-agreement-dto';
 import { ContractOffer } from 'src/app/models/contract-offer';
 import { NegotiationRequestDto } from 'src/app/models/negotiation-request-dto';
 import { Offer } from 'src/app/models/offer';
@@ -87,15 +86,13 @@ export class OfferViewComponent
   }
 
   fetchContract(co: ContractOffer): void {
-    if (co.offer.isEvent()) {
-      this.contractOffer?.updateContract(Contract.unlimited());
-    } else {
-      this.contractSub = this.httpService
-        .getContract(this.participant!.url, co.offer.asset.id)
-        .subscribe((contractResponse: Contract) =>
-          co.updateContract(contractResponse)
-        );
-    }
+    this.contractSub = this.httpService
+      .getContractsByAssetId(this.participant!.url, co.offer.asset.id)
+      .subscribe((contractsResponse: Array<Contract>) => {
+        if (contractsResponse.length > 0) {
+          this.contractOffer = co.updateContract(contractsResponse[0]);
+        }
+      });
   }
 
   requestAccess(): void {
@@ -123,7 +120,7 @@ export class OfferViewComponent
   sendTransferRequest(negotiationId: string) {
     this.agreementSub = this.httpService
       .getAgreement(this.participant!.url, negotiationId)
-      .subscribe((dto: ContractAgreementDto) => {
+      .subscribe((dto: any) => {
         this.transferRequestSub = this.httpService
           .sendTransferRequest(
             this.participant!.url,

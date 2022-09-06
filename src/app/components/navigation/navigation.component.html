@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <a class="navbar-brand" *ngIf="isLoggedin" href="#search">
+        <!-- <a class="navbar-brand" *ngIf="isLoggedin" href="#search">
           <img
             src="/assets/logo-eonax.png"
             class="me-2"
@@ -11,7 +11,7 @@
             loading="lazy"
           />
           <small>Dashboard</small>
-        </a>
+        </a> -->
         <!-- <li class="nav-item">
           <a class="nav-link" aria-current="page" href="#">Dashboard</a>
         </li> -->
@@ -28,7 +28,22 @@
         </li>
       </ul>
       <ul class="navbar-nav">
-        <a class="navbar-brand" *ngIf="isLoggedin" href="profile">
+        <a class="navbar-brand" *ngIf="isLoggedin" href="#search">
+          <img
+            src="/assets/home4.png"
+            class="me-2"
+            height="30"
+            alt=""
+            loading="lazy"
+          />
+          <small>Home</small>
+        </a>
+        <a
+          class="navbar-brand"
+          *ngIf="isLoggedin"
+          role="button"
+          (click)="toProfilePage()"
+        >
           <img
             src="/assets/login2.png"
             class="me-2"

@@ -1,7 +1,6 @@
 .offer {
   &-tabs {
-    background-color: #151515;
-    color: white;
+    //color: black;
     text-align: left;
     margin-left: auto;
     margin-right: auto;
@@ -13,23 +12,25 @@
         align-items: center;
         height: 80px;
         justify-content: center;
-        background-color: rgba(75, 52, 168, 0.528);
+        background-color: #4a379d;
       }
 
       .mat-tab-label {
         font-size: 32px;
-        color: white;
+        color: white !important;
       }
     }
   }
 }
 
 .user-card {
-  background-color: #202020;
   margin-top: 20px;
+  background-color: #f1f1f1;
+  box-shadow: 4px 3px 8px 0px rgb(191, 188, 182);
+  max-height: 500px;
+  overflow: scroll;
 
   &-container {
-    background-color: #151515;
     align-items: center;
     align-content: center;
     width: 80%;
@@ -53,18 +54,19 @@
   }
 
   &-title {
-    color: white;
+    color: black;
     font-size: 24px;
     padding: 10px;
   }
 
   &-subtitle {
-    color: white;
+    color: black;
     padding: 10px;
   }
 
   &-content {
     &-body {
+      color: black;
       position: relative;
       text-align: left;
       overflow: auto;
