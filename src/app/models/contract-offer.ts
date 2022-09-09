@@ -1,12 +1,8 @@
 import { Contract } from './contract';
+import { DateUtils } from './date-utils';
 import { Offer } from './offer';
 
 export class ContractOffer {
-  private static MIN_DATE: Date = new Date(-8640000000000000);
-  private static MAX_DATE: Date = new Date(8640000000000000);
-  private static MIN_DATE_SECONDS: number =
-    ContractOffer.MIN_DATE.getTime() / 1000;
-
   readonly offer: Offer;
   readonly contract: Contract;
 
@@ -31,16 +27,15 @@ export class ContractOffer {
   }
 
   static noContract(offer: Offer): ContractOffer {
-    let contractEnDate = offer.isEvent()
-      ? ContractOffer.MAX_DATE
-      : ContractOffer.MIN_DATE;
+    const start = DateUtils.MIN_DATE_SECONDS;
+    const end = offer.isEvent() ? DateUtils.MAX_DATE : DateUtils.MIN_DATE;
     let contract = new Contract(
       '',
       '',
       '',
-      ContractOffer.MIN_DATE_SECONDS,
-      ContractOffer.MIN_DATE_SECONDS,
-      contractEnDate.getTime() * 1000,
+      start,
+      start,
+      DateUtils.toSeconds(end),
       offer.asset.id,
       undefined
     );

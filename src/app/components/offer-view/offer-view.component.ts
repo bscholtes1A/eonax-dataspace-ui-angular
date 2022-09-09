@@ -49,7 +49,7 @@ export class OfferViewComponent
       if (params['id']) {
         this.fetchContractOffer(params['id']);
       } else {
-        this.router.navigate(['home']);
+        this.router.navigate(['search']);
       }
     });
   }
@@ -77,7 +77,7 @@ export class OfferViewComponent
       .getOfferByAssetId(this.participant!.url, assetId)
       .subscribe((offerResponse: Offer) => {
         this.contractOffer = ContractOffer.noContract(offerResponse);
-        this.fetchContract(this.contractOffer);
+        this.fetchContract();
 
         setTimeout(() => {
           this.popularity = POPULARITY;
@@ -85,12 +85,17 @@ export class OfferViewComponent
       });
   }
 
-  fetchContract(co: ContractOffer): void {
+  fetchContract(): void {
     this.contractSub = this.httpService
-      .getContractsByAssetId(this.participant!.url, co.offer.asset.id)
+      .getContractsByAssetId(
+        this.participant!.url,
+        this.contractOffer!.offer.asset.id
+      )
       .subscribe((contractsResponse: Array<Contract>) => {
         if (contractsResponse.length > 0) {
-          this.contractOffer = co.updateContract(contractsResponse[0]);
+          this.contractOffer = this.contractOffer!.updateContract(
+            contractsResponse[0]
+          );
         }
       });
   }
@@ -141,6 +146,7 @@ export class OfferViewComponent
             this.markAcessRequestAsSuccess(
               'Transfer process id: ' + transferProcessId
             );
+            this.fetchContract();
           });
       });
   }

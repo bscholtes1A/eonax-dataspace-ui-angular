@@ -16,12 +16,13 @@ import { HomeComponent } from './components/home/home.component';
 import { HttpErrorsInterceptor } from './interceptors/http-errors.interceptors';
 import { LoginComponent } from './components/login/login.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { OfferTabsComponent } from './components/offer-view/offer-tabs/offer-tabs.component';
 import { OfferViewComponent } from './components/offer-view/offer-view.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { OfferPropsComponent } from './components/offer-view/offer-props/offer-props.component';
+import { ContractPanelComponent } from './components/offer-view/contract-panel/contract-panel.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +31,9 @@ import { MatDividerModule } from '@angular/material/divider';
     LoginComponent,
     OfferViewComponent,
     NavigationComponent,
-    OfferTabsComponent,
     ProfileComponent,
+    OfferPropsComponent,
+    ContractPanelComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,6 @@ import { MatDividerModule } from '@angular/material/divider';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    MatDividerModule,
   ],
   providers: [
     {
@@ -54,6 +55,7 @@ import { MatDividerModule } from '@angular/material/divider';
       useClass: HttpErrorsInterceptor,
       multi: true,
     },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })

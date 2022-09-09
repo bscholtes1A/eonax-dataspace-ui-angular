@@ -1,0 +1,13 @@
+<div class="contract-panel">
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Contract">
+      <mat-card class="tab-card">
+        <mat-card-content class="tab-card-content">
+          <code>
+            <pre>{{ co.contract.prettyJson() | json }}</pre>
+          </code>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</div>

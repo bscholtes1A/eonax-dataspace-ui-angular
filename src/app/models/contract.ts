@@ -1,8 +1,7 @@
+import { DateUtils } from './date-utils';
 import { Policy } from './policy';
 
 export class Contract {
-  private static MAX_DATE: Date = new Date(8640000000000000);
-
   readonly id!: string;
   readonly providerAgentId!: string;
   readonly consumerAgentId!: string;
@@ -33,11 +32,11 @@ export class Contract {
   }
 
   isValid(): boolean {
-    return this.contractEndDate > new Date().getTime() / 1000;
+    return this.contractEndDate > DateUtils.now();
   }
 
   isValidForever(): boolean {
-    return this.contractEndDate === Contract.MAX_DATE.getTime() / 1000;
+    return this.contractEndDate === DateUtils.max();
   }
 
   prettyJson(): any {
@@ -45,9 +44,9 @@ export class Contract {
       id: this.id,
       providerAgentId: this.providerAgentId,
       consumerAgentId: this.consumerAgentId,
-      contractSigningDate: this.toDate(this.contractSigningDate),
-      contractStartDate: this.toDate(this.contractStartDate),
-      contractEndDate: this.toDate(this.contractEndDate),
+      contractSigningDate: DateUtils.toDateStr(this.contractSigningDate),
+      contractStartDate: DateUtils.toDateStr(this.contractStartDate),
+      contractEndDate: DateUtils.toDateStr(this.contractEndDate),
       assetId: this.assetId,
       policy: this.policy,
     };
@@ -59,15 +58,9 @@ export class Contract {
     } else if (this.isValid()) {
       return (
         'You have access to this asset until: ' +
-        this.toDate(this.contractEndDate)
+        DateUtils.toDateStr(this.contractEndDate)
       );
     }
     return '';
-  }
-
-  private toDate(seconds: number): string {
-    return new Date(seconds * 1000).toLocaleString('fr-FR', {
-      timeZone: 'Europe/Paris',
-    });
   }
 }

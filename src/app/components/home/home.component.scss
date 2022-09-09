@@ -65,11 +65,13 @@
   box-shadow: 4px 3px 8px 0px rgb(191, 188, 182);
   transition-duration: 0.3s;
   cursor: pointer;
+  background-color: #f8f5f5;
 
   &:hover {
     box-shadow: 4px 3px 8px 0px rgb(200, 152, 44);
     transform: translateY(-5px);
   }
+  // box-shadow: none;
 
   &-logo-container {
     margin-top: 20px;

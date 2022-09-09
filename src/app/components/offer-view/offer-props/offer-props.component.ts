@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ContractOffer } from 'src/app/models/contract-offer';
 
 @Component({
-  selector: 'app-offer-tabs',
-  templateUrl: './offer-tabs.component.html',
-  styleUrls: ['./offer-tabs.component.scss'],
+  selector: 'app-offer-props',
+  templateUrl: './offer-props.component.html',
+  styleUrls: ['./offer-props.component.scss'],
 })
-export class OfferTabsComponent implements OnInit {
+export class OfferPropsComponent implements OnInit {
   @Input()
   co!: ContractOffer;
   isDocumented = false;

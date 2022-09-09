@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.registerParticipants();
+    this.fetchParticipants();
 
     const result = this.sessionManager.getUser();
     if (result.succeeded()) {
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['search']);
   }
 
-  registerParticipants() {
+  fetchParticipants() {
     this.httpService
       .getAllParticipants(environment.registryServiceUrl)
       .subscribe((response: Array<Participant>) => {

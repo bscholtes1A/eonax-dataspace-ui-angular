@@ -1,0 +1,24 @@
+<div class="offer-props">
+  <mat-tab-group active="true" [selectedIndex]="0" mat-align-tabs="start">
+    <mat-tab label="Response example" *ngIf="co.offer.asset.responseExample">
+      <mat-card class="tab-card">
+        <mat-card-content class="tab-card-content">
+          <code>
+            <pre>{{ co.offer.asset.responseExample | json }}</pre>
+          </code>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Policy" [disabled]="!isRestricted">
+      <mat-card class="tab-card">
+        <mat-card-content class="tab-card-content">
+          <code>
+            <pre>{{
+              co.offer.policy.permissions[0].constraints[0] | json
+            }}</pre>
+          </code>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</div>
