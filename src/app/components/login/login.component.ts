@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Participant } from 'src/app/models/participant';
 import { AuthService } from 'src/app/services/auth.service';
+import { ConfigService } from 'src/app/services/config.service';
 import { HttpService } from 'src/app/services/http.service';
 import { SessionManagerService } from 'src/app/services/session-manager.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private sessionManager: SessionManagerService,
     private httpService: HttpService,
-    private router: Router
+    private router: Router,
+    private config: ConfigService
   ) {}
 
   ngOnInit(): void {
@@ -71,8 +72,11 @@ export class LoginComponent implements OnInit {
   }
 
   fetchParticipants() {
+    const registrationServiceUrl = this.config.get().registrationServiceUrl;
+    console.log('registration service url: ' + registrationServiceUrl);
+
     this.httpService
-      .getAllParticipants(environment.registryServiceUrl)
+      .getAllParticipants(registrationServiceUrl)
       .subscribe((response: Array<Participant>) => {
         this.participants = response;
       });

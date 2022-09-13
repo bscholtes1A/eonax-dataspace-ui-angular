@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +23,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { OfferPropsComponent } from './components/offer-view/offer-props/offer-props.component';
 import { ContractPanelComponent } from './components/offer-view/contract-panel/contract-panel.component';
+import { ConfigService } from './services/config.service';
 
+const appInitializerFn = (appConfig: ConfigService) => {
+  return () => {
+    return appConfig.loadAppConfig();
+  };
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +62,13 @@ import { ContractPanelComponent } from './components/offer-view/contract-panel/c
       multi: true,
     },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+    ConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFn,
+      multi: true,
+      deps: [ConfigService],
+    },
   ],
   bootstrap: [AppComponent],
 })

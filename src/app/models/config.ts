@@ -1,3 +1,3 @@
 export interface Config {
-  registryServiceUrl: string;
+  registrationServiceUrl: string;
 }
