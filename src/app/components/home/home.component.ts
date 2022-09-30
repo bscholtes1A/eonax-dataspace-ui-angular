@@ -52,7 +52,7 @@ export class HomeComponent
 
   fetchContractOffers() {
     this.offerSub = this.httpService
-      .getAllOffers(this.participant!.url)
+      .getAllOffers(this.didDocument!.getEndpoint())
       .subscribe((offersResponse: Array<Offer>) => {
         this.contractOffers = offersResponse.map((o) =>
           ContractOffer.noContract(o)
@@ -64,7 +64,10 @@ export class HomeComponent
   fetchContracts(): void {
     this.contractOffers.forEach((co, index) => {
       this.contractSub = this.httpService
-        .getContractsByAssetId(this.participant!.url, co.offer.asset.id)
+        .getContractsByAssetId(
+          this.didDocument!.getEndpoint(),
+          co.offer.asset.id
+        )
         .subscribe((contractsResponse: Array<Contract>) => {
           if (contractsResponse.length > 0) {
             this.contractOffers[index] = co.updateContract(

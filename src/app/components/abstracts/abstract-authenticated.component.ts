@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Participant } from 'src/app/models/participant';
+import { DidDocument } from 'src/app/models/did-document';
 import { SessionManagerService } from 'src/app/services/session-manager.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { SessionManagerService } from 'src/app/services/session-manager.service'
   template: '',
 })
 export abstract class AbstractAuthenticatedComponent implements OnInit {
-  protected participant?: Participant;
+  protected didDocument?: DidDocument;
   protected isLoggedin = false;
 
   protected constructor(
@@ -22,7 +22,7 @@ export abstract class AbstractAuthenticatedComponent implements OnInit {
       console.warn('Not authenticated');
       this.r.navigate(['login']);
     } else {
-      this.participant = result.getEntity();
+      this.didDocument = new DidDocument(result.getEntity());
       this.isLoggedin = true;
     }
     this.init();

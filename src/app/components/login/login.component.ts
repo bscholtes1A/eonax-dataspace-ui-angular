@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Participant } from 'src/app/models/participant';
+import { DidDocument } from 'src/app/models/did-document';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { HttpService } from 'src/app/services/http.service';
@@ -16,11 +16,11 @@ export class LoginComponent implements OnInit {
     username: null,
     password: null,
   };
-  participants: Participant[] = [];
+  participants: DidDocument[] = [];
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  loggedAs?: Participant = undefined;
+  loggedAs?: DidDocument = undefined;
 
   constructor(
     private authService: AuthService,
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     const { username, password } = this.form;
 
-    const participant = this.participants.find((p) => p.name === username);
+    const participant = this.participants.find((p) => p.getName() === username);
 
     if (participant !== undefined) {
       const auth = this.authService.login(password);
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
     this.errorMessage = error;
   }
 
-  loginSuccessful(participant: Participant) {
+  loginSuccessful(participant: DidDocument) {
     this.sessionManager.saveUser(participant);
     this.isLoginFailed = false;
     this.isLoggedIn = true;
@@ -73,11 +73,11 @@ export class LoginComponent implements OnInit {
 
   fetchParticipants() {
     const registrationServiceUrl = this.config.get().registrationServiceUrl;
-    console.log('registration service url: ' + registrationServiceUrl);
+    //    console.log('registration service url: ' + registrationServiceUrl);
 
     this.httpService
       .getAllParticipants(registrationServiceUrl)
-      .subscribe((response: Array<Participant>) => {
+      .subscribe((response: Array<DidDocument>) => {
         this.participants = response;
       });
   }

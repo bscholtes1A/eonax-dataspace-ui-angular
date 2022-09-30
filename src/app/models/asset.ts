@@ -2,6 +2,7 @@ export class Asset {
   static readonly PROPERTIES = 'properties';
   static readonly MONETIZED = 'monetized';
   static readonly PROPS_ID = 'asset:prop:id';
+  static readonly PROPS_NAME = 'asset:prop:name';
   static readonly PROPS_DESCRIPTION = 'asset:prop:description';
   static readonly PROPS_LOGO_URL = 'logoUrl';
   static readonly PROPS_ORIGINATOR = 'asset:prop:originator';
@@ -9,6 +10,7 @@ export class Asset {
   static readonly PROPS_KEYWORDS = 'keywords';
 
   readonly id!: string;
+  readonly name!: string;
   readonly description: string;
   readonly logoUrl: string;
   readonly responseExample: object;
@@ -38,6 +40,7 @@ export class Asset {
       props[Asset.MONETIZED] !== undefined ? props[Asset.MONETIZED] : false;
 
     this.id = props[Asset.PROPS_ID]!;
+    this.name = props[Asset.PROPS_NAME];
     this.description = props[Asset.PROPS_DESCRIPTION];
     this.logoUrl = props[Asset.PROPS_LOGO_URL];
     this.originator = props[Asset.PROPS_ORIGINATOR];

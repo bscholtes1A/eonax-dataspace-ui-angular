@@ -26,7 +26,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
       .subscribe((logged) => {
         this.isLoggedin = logged;
         if (logged) {
-          this.participantName = this.sessionManager.getUser().getEntity().name;
+          this.participantName = this.sessionManager
+            .getUser()
+            .getEntity()
+            .getName();
         }
       });
   }
@@ -56,7 +59,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     const user = this.sessionManager.getUser();
     if (user.succeeded()) {
       this.isLoggedin = true;
-      this.participantName = user.getEntity().name;
+      this.participantName = user.getEntity().getName();
     }
   }
 }

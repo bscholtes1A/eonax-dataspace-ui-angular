@@ -1,11 +1,11 @@
 <div class="offer-tabs">
   <mat-tab-group mat-align-tabs="start" [selectedIndex]="0">
-    <mat-tab label="Setting" active="true">
+    <mat-tab label="DID" active="true">
       <mat-card class="user-card">
         <mat-card-header class="user-card-header"> </mat-card-header>
         <mat-card-content class="user-card-content">
           <code>
-            <pre>{{ participant! | json }}</pre>
+            <pre>{{ didDocument! | json }}</pre>
           </code>
         </mat-card-content>
       </mat-card>
@@ -50,60 +50,5 @@
         </mat-card-content>
       </mat-card>
     </mat-tab>
-    <!-- <mat-tab label="Policy" [disabled]="!isRestricted">
-      <mat-card class="user-card">
-        <mat-card-header class="user-card-header">
-          <mat-card-title class="user-card-title">Constraints</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="user-card-content">
-          <code>
-            <pre>{{ offer.policy.permissions[0].constraints[0] | json }}</pre>
-          </code>
-        </mat-card-content>
-      </mat-card>
-    </mat-tab> -->
   </mat-tab-group>
 </div>
-
-<!-- <div class="user-card-container">
-  <mat-card class="user-card">
-    <mat-card-header class="user-card-header">
-      <div mat-card-avatar class="user-card-avatar">
-        <img src="/assets/login2.png" class="user-card-img" />
-      </div>
-      <mat-card-title class="user-card-title">{{
-        participant!.name
-      }}</mat-card-title>
-      <mat-card-subtitle class="user-card-subtitle"
-        >Connector address: {{ participant!.url }}</mat-card-subtitle
-      >
-    </mat-card-header>
-  </mat-card>
-
-  <div *ngIf="selfDescription">
-    <mat-card class="user-card">
-      <mat-card-header class="user-card-header">
-        <mat-card-title class="user-card-title">
-          Verifiable credentials
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content class="user-card-content">
-        <code>
-          <pre>{{ selfDescription.selfDescriptionCredential | json }}</pre>
-        </code>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="user-card">
-      <mat-card-header class="user-card-header">
-        <mat-card-title class="user-card-title"
-          >Compliance credentials</mat-card-title
-        >
-      </mat-card-header>
-      <mat-card-content class="user-card-content">
-        <code>
-          <pre>{{ selfDescription.complianceCredential | json }}</pre>
-        </code>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div> -->

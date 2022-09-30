@@ -58,7 +58,7 @@ export class ProfileComponent
 
   private fetchSelfDescription(): void {
     this.selfDescriptionSub = this.httpService
-      .getSelfDescription(this.participant!.url)
+      .getSelfDescription(this.didDocument!.getEndpoint())
       .subscribe((selfDescriptionResponse: any) => {
         this.selfDescription = selfDescriptionResponse;
       });
@@ -66,7 +66,7 @@ export class ProfileComponent
 
   private fetchPolicyDefinitions(): void {
     this.policyDefinitionsSub = this.httpService
-      .getAllPolicyDefinitions(this.participant!.url)
+      .getAllPolicyDefinitions(this.didDocument!.getEndpoint())
       .subscribe((policyDefinitionsResponse: Array<Policy>) => {
         this.policyDefinitions = policyDefinitionsResponse;
       });
@@ -74,7 +74,7 @@ export class ProfileComponent
 
   private fetchAssets(): void {
     this.assetsSub = this.httpService
-      .getAllAssets(this.participant!.url)
+      .getAllAssets(this.didDocument!.getEndpoint())
       .subscribe((assetsResponse: Array<Asset>) => {
         this.assets = assetsResponse;
       });
@@ -82,7 +82,7 @@ export class ProfileComponent
 
   private fetchContractDefinitions(): void {
     this.contractDefinitionsSub = this.httpService
-      .getAllContractDefinitions(this.participant!.url)
+      .getAllContractDefinitions(this.didDocument!.getEndpoint())
       .subscribe((contractDefinitionsResponse: Array<any>) => {
         this.contractDefinitions = contractDefinitionsResponse;
       });

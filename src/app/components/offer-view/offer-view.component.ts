@@ -74,7 +74,7 @@ export class OfferViewComponent
 
   fetchContractOffer(assetId: string): void {
     this.offerSub = this.httpService
-      .getOfferByAssetId(this.participant!.url, assetId)
+      .getOfferByAssetId(this.didDocument!.getEndpoint(), assetId)
       .subscribe((offerResponse: Offer) => {
         this.contractOffer = ContractOffer.noContract(offerResponse);
         this.fetchContract();
@@ -88,7 +88,7 @@ export class OfferViewComponent
   fetchContract(): void {
     this.contractSub = this.httpService
       .getContractsByAssetId(
-        this.participant!.url,
+        this.didDocument!.getEndpoint(),
         this.contractOffer!.offer.asset.id
       )
       .subscribe((contractsResponse: Array<Contract>) => {
@@ -105,7 +105,7 @@ export class OfferViewComponent
 
     this.negotiationSub = this.httpService
       .startNegotiation(
-        this.participant!.url,
+        this.didDocument!.getEndpoint(),
         new NegotiationRequestDto(this.contractOffer!.offer)
       )
       .subscribe((negotiationId: string) => {
@@ -124,11 +124,11 @@ export class OfferViewComponent
 
   sendTransferRequest(negotiationId: string) {
     this.agreementSub = this.httpService
-      .getAgreement(this.participant!.url, negotiationId)
+      .getAgreement(this.didDocument!.getEndpoint(), negotiationId)
       .subscribe((dto: any) => {
         this.transferRequestSub = this.httpService
           .sendTransferRequest(
-            this.participant!.url,
+            this.didDocument!.getEndpoint(),
             new TransferRequestDto(this.contractOffer!.offer.asset, dto.id)
           )
           .pipe(

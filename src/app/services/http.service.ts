@@ -6,8 +6,8 @@ import { Policy } from '../models/policy';
 import { Contract } from '../models/contract';
 import { NegotiationRequestDto } from '../models/negotiation-request-dto';
 import { Offer } from '../models/offer';
-import { Participant } from '../models/participant';
 import { TransferRequestDto } from '../models/transfer-request-dto';
+import { DidDocument } from '../models/did-document';
 
 @Injectable({
   providedIn: 'root',
@@ -17,14 +17,14 @@ export class HttpService {
 
   getAllParticipants(
     registryServiceUrl: string
-  ): Observable<Array<Participant>> {
-    return this.http.get<Array<Participant>>(
-      registryServiceUrl + `/api/registry/participants`
-    );
+  ): Observable<Array<DidDocument>> {
+    return this.http
+      .get<Array<any>>(registryServiceUrl + `/participants`)
+      .pipe(map((dtos) => dtos.map((dto) => new DidDocument(dto))));
   }
 
   getSelfDescription(connectorUrl: string): Observable<any> {
-    return this.http.get<Array<Participant>>(
+    return this.http.get<Array<any>>(
       connectorUrl + `/api/identity-hub/self-description`
     );
   }

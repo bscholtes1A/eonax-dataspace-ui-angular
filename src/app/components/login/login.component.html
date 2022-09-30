@@ -24,7 +24,7 @@
       />
     </div>
     <datalist id="users">
-      <option *ngFor="let item of participants">{{ item.name }}</option>
+      <option *ngFor="let item of participants">{{ item.getName() }}</option>
     </datalist>
     <div class="form-group">
       <input

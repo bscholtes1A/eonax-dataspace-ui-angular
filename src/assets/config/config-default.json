@@ -1,3 +1,4 @@
 {
-  "registrationServiceUrl": "http://registration-service-eonax-dev.apps.zr03wq4z.uksouth.aroapp.io"
+  "registrationServiceUrlTmp": "http://registration-service-eonax-dev.apps.zr03wq4z.uksouth.aroapp.io",
+  "registrationServiceUrl": "http://registration-service-eonax-dev.apps.zr03wq4z.uksouth.aroapp.io/public"
 }

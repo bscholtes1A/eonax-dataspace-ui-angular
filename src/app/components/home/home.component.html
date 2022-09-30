@@ -17,29 +17,29 @@
           class="offer-logo"
         />
       </div>
-      <div class="offer-description">
-        <p class="offer-name">{{ co.offer.asset.id }}</p>
-        <div class="offer-tags" *ngIf="co.offer.asset.keywords">
-          <img
-            class="offer-tag"
-            *ngIf="co.offer.isEvent()"
-            src="/assets/kafka-light.png"
-            alt="slug"
-          />
-          <img
-            class="offer-tag"
-            *ngIf="co.offer.asset.keywords.includes('get')"
-            src="/assets/rest2.png"
-            alt="slug"
-          />
-          <img
-            class="offer-tag"
-            *ngIf="co.offer.asset.monetized"
-            src="/assets/cash.jpg"
-            alt="slug"
-          />
-        </div>
+      <!-- <div class="offer-description"> -->
+      <p class="offer-name">{{ co.offer.asset.name }}</p>
+      <div class="offer-tags" *ngIf="co.offer.asset.keywords">
+        <img
+          class="offer-tag"
+          *ngIf="co.offer.isEvent()"
+          src="/assets/kafka-light.png"
+          alt="slug"
+        />
+        <img
+          class="offer-tag"
+          *ngIf="co.offer.asset.keywords.includes('get')"
+          src="/assets/rest2.png"
+          alt="slug"
+        />
+        <img
+          class="offer-tag"
+          *ngIf="co.offer.asset.monetized"
+          src="/assets/cash.jpg"
+          alt="slug"
+        />
       </div>
     </div>
+    <!-- </div> -->
   </ng-container>
 </div>
